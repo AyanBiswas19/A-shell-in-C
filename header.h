@@ -13,6 +13,8 @@
 #include <time.h>
 #include <unistd.h>
 
+#include "structs.h"
+
 #define INP_BUFFSIZE (1000)
 #define MAX_ARG_LENGTH (300)
 #define MAX_ARG_NO (50)
@@ -22,14 +24,6 @@
 #define MAX_PATH_LENGTH (1000)
 
 extern pid_t fgpid;
-
-struct env_data {
-  char *user_name;
-  char *pwd;
-  char *hostname;
-};
-
-typedef struct env_data env_data;
 
 void get_env_data(env_data *E);
 void print_promt(env_data E);
