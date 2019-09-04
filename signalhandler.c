@@ -18,6 +18,6 @@ void handler() {
       fgpid = -1;
       return;
     } else
-      fprintf(stderr,"Process pid: %ld exited successfully.\n", (long)pid);
+      fprintf(stderr, "Process pid: %ld exited successfully.\n", (long)pid);
   }
 }
