@@ -16,7 +16,7 @@ int get_background_flag(char *s) {
 }
 
 void run_shell() {
-  int i, background_flag;
+  int i;
   env_data E;
   E.pwd = malloc(MAX_PATH_LENGTH * sizeof(char));
   char clist[][MAX_COMMANDNAME_LENGTH] = {"cd", "echo",  "pwd",

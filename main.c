@@ -1,7 +1,7 @@
 #include "header.h"
 
 pid_t fgpid = -1;
-job *head=NULL;
+job *jhead=NULL;
 
 int main() {
   // fgpid=0;

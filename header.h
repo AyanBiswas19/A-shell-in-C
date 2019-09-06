@@ -24,7 +24,7 @@
 #define MAX_PATH_LENGTH (1000)
 
 extern pid_t fgpid;
-extern job* head;
+extern job* jhead;
 
 void get_env_data(env_data *E);
 void print_promt(env_data E);
@@ -43,3 +43,6 @@ int get_background_flag(char *s);
 void handler();
 job *insert_job(job *head, job *Job);
 job *remove_job(job *head, pid_t pgid);
+void update_jnos(job *head);
+job *init_job(const char *command, int bflag);
+process *get_proclist(job *j);

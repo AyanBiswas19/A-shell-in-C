@@ -3,13 +3,15 @@
 job *insert_job(job *head, job *Job){
 	job *j=head;
 	if(!j){
-		Job->next=NULL;
+		Job->no=1;
 		return Job;
 	}
+	int i=1;
 	while(j->next){
 		j=j->next;
 	}
 	j->next=Job;
+	update_jnos(head);
 	return head;
 }
 
@@ -28,5 +30,14 @@ job *remove_job(job *head, pid_t pgid){
 			break;
 		}
 	}
+	update_jnos(head);
 	return head;
+}
+
+void update_jnos(job *head){
+	int i=1;
+	while(head){
+		head->no=i++;
+		head=head->next;
+	}
 }
