@@ -65,7 +65,6 @@ int shell_ls(char *args[]) {
           continue;
         else {
           if (S_ISDIR(status.st_mode)) {
-
             DIR *dp = opendir(args[i]);
             if (!dp) {
               printf("Unable open %s\n", args[i]);

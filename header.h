@@ -22,9 +22,10 @@
 #define MAX_COMMAND_NO (50)
 #define MAX_COMMAND_LENGTH (300)
 #define MAX_PATH_LENGTH (1000)
+#define IO_REDIRECTFILE_PATH_LENGTH (1000)
 
 extern pid_t fgpid;
-extern job* jhead;
+extern job *jhead;
 
 void get_env_data(env_data *E);
 void print_promt(env_data E);
@@ -33,6 +34,7 @@ int check_builtin(char *cname, char clist[][MAX_COMMANDNAME_LENGTH]);
 int execute(int ctr, char *args[], int bf);
 void print_args(char **args);
 void get_args(char *line, char **args);
+void get_args2(process *p, char *token);
 int shell_cd(char *args[]);
 int shell_pwd(char *args[]);
 int shell_echo(char *args[]);
@@ -43,6 +45,13 @@ int get_background_flag(char *s);
 void handler();
 job *insert_job(job *head, job *Job);
 job *remove_job(job *head, pid_t pgid);
+job *clean_list(job *head);
 void update_jnos(job *head);
 job *init_job(const char *command, int bflag);
 process *get_proclist(job *j);
+int job_runner(job *j, char clist[][MAX_COMMANDNAME_LENGTH]);
+int job_printer(job *j);
+void launch_process(process *p, pid_t pgid, int infile, int outfile, int bflag,
+                    char clist[][MAX_COMMANDNAME_LENGTH]);
+process *find_process(job *head, pid_t pid);
+void update_jobs(job *head);

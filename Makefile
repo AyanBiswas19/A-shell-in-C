@@ -1,4 +1,4 @@
 #very basic makefile
 
 all:
-	gcc *.c header.h
+	gcc *.c -g -O0

@@ -4,7 +4,6 @@ int exec_extern(char *args[], int bf) {
   pid_t pid;
   int status;
   switch (pid = fork()) {
-
   case -1:
     perror("fork failed");
     return EXIT_FAILURE;

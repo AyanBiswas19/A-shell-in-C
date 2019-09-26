@@ -19,12 +19,13 @@ void run_shell() {
   int i;
   env_data E;
   E.pwd = malloc(MAX_PATH_LENGTH * sizeof(char));
-  char clist[][MAX_COMMANDNAME_LENGTH] = {"cd", "echo",  "pwd",
-                                          "ls", "pinfo", "\0"};
-  char inp_line[INP_BUFFSIZE], cname[MAX_COMMANDNAME_LENGTH], *command, *param;
-  char *args[MAX_ARG_NO];
-  char *commands[MAX_COMMAND_NO];
-  int background_flags[MAX_COMMAND_NO];
+  char clist[][MAX_COMMANDNAME_LENGTH] = {"cd",    "echo", "pwd", "ls",
+                                          "pinfo", "exit", "\0"};
+  char inp_line[INP_BUFFSIZE * sizeof(char)],
+      cname[MAX_COMMANDNAME_LENGTH * sizeof(char)], *command, *param;
+  char *args[MAX_ARG_NO * sizeof(char *)];
+  char *commands[MAX_COMMAND_NO * sizeof(char *)];
+  int background_flags[MAX_COMMAND_NO * sizeof(int)];
   inp_line[0] = '\0';
   int exit_flag = 0, cno, rid;
   while (1) {
@@ -48,20 +49,33 @@ void run_shell() {
       command = strtok(NULL, ";");
     }
     commands[i] = NULL;
+
     for (i = 0; commands[i]; i++) {
-      get_args(commands[i], args);
-      if (!*args)
-        continue;
-      if (!strcmp(args[0], "exit")) {
+      if (!strncmp(commands[i], "exit", 4)) {
         exit_flag = 1;
         break;
       }
-      // Check if command is built in
-      cno = check_builtin(args[0], clist);
-      // Execute it
-      rid = execute(cno, args, background_flags[i]);
-      // Check exit status of execute maybe?
+      job *j = init_job(commands[i], background_flags[i]);
+      jhead = insert_job(jhead, j);
+      update_jnos(jhead);
+      rid = job_runner(j, clist);
+      if (rid == 11)
+        exit_flag = 1;
     }
+
+    // for (i = 0; commands[i]; i++) {
+    //   get_args(commands[i], args);
+    //   if (!*args) continue;
+    //   if (!strcmp(args[0], "exit")) {
+    //     exit_flag = 1;
+    //     break;
+    //   }
+    //   // Check if command is built in
+    //   cno = check_builtin(args[0], clist);
+    //   // Execute it
+    //   rid = execute(cno, args, background_flags[i]);
+    //   // Check exit status of execute maybe?
+    // }
     printf("\n");
     if (exit_flag)
       break;

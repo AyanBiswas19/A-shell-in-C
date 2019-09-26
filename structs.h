@@ -8,18 +8,20 @@ typedef struct env_data env_data;
 
 struct process {
   struct process *next;
-  char **argv;
+  char **args;
   pid_t pid;
   char completed;
   char stopped;
-  int status;
-  int infile,outfile,aflag;
+  int done;
+  char *infile, *outfile;
+  int aflag;
 };
 typedef struct process process;
 
 struct job {
   struct job *next;
   char *command;
+  char *argspace;
   process *first_process;
   pid_t pgid;
   char done;

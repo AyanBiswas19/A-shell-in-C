@@ -31,6 +31,8 @@ int execute(int ctr, char *args[], int bf) {
     case 4:
       return_id = shell_pinfo(args);
       break;
+    case 5: // Exit
+      return 11;
     default:
       printf("Some very strange error occured\n");
       break;
