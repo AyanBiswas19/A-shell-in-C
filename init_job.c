@@ -32,10 +32,9 @@ process *get_proclist(job *j) {
     p->completed = 0;
     p->stopped = 0;
     p->aflag = 0;
-    p->done=0;
+    p->done = 0;
     p->args = malloc(MAX_ARG_NO * sizeof(char *));
     get_args2(p, token);
   }
   return h;
 }
-

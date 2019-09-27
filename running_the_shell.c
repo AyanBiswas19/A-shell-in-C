@@ -19,8 +19,8 @@ void run_shell() {
   int i;
   env_data E;
   E.pwd = malloc(MAX_PATH_LENGTH * sizeof(char));
-  char clist[][MAX_COMMANDNAME_LENGTH] = {"cd",    "echo", "pwd", "ls",
-                                          "pinfo", "exit", "\0"};
+  char clist[][MAX_COMMANDNAME_LENGTH] = {"cd", "echo",  "pwd",
+                                          "ls", "pinfo", "\0"};
   char inp_line[INP_BUFFSIZE * sizeof(char)],
       cname[MAX_COMMANDNAME_LENGTH * sizeof(char)], *command, *param;
   char *args[MAX_ARG_NO * sizeof(char *)];
@@ -51,7 +51,7 @@ void run_shell() {
     commands[i] = NULL;
 
     for (i = 0; commands[i]; i++) {
-      if (!strncmp(commands[i], "exit", 4)) {
+      if (!strncmp(commands[i], "quit", 4)) {
         exit_flag = 1;
         break;
       }
@@ -59,8 +59,6 @@ void run_shell() {
       jhead = insert_job(jhead, j);
       update_jnos(jhead);
       rid = job_runner(j, clist);
-      if (rid == 11)
-        exit_flag = 1;
     }
 
     // for (i = 0; commands[i]; i++) {

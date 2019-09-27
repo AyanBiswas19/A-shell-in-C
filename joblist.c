@@ -29,6 +29,7 @@ job *remove_job(job *head, pid_t pgid) {
       free(t);
       break;
     }
+    j = j->next;
   }
   update_jnos(head);
   return head;
@@ -45,7 +46,8 @@ void update_jnos(job *head) {
 job *clean_list(job *head) {
   job *p = head;
   while (p) {
-    if (p->done) {
+    if (p->done && p->bflag) {
+      printf("Background job: %s exited with pgid %d.\n", p->command, p->pgid);
       head = remove_job(head, p->pgid);
     }
     p = p->next;
@@ -53,33 +55,35 @@ job *clean_list(job *head) {
   return head;
 }
 
-process *find_process(job *head, pid_t pid){
-  job *j=head;
-  while(j){    
-    process *p=j->first_process;
-    while(p){
-      if(p->pid==pid)
+process *find_process(job *head, pid_t pid) {
+  job *j = head;
+  while (j) {
+    process *p = j->first_process;
+    while (p) {
+      if (p->pid == pid)
         return p;
-      p=p->next;
+      p = p->next;
     }
-    j=j->next;
+    j = j->next;
   }
   return NULL;
 }
 
-void update_jobs(job *head){
-  job *j=head;
+job *update_jobs(job *head) {
+  job *j = head;
   process *p;
-  while(j){
-    p=j->first_process;
-    j->done=1;
-    while(p){
-      if(p->done!=1){
-        j->done=0;
+  while (j) {
+    p = j->first_process;
+    j->done = 1;
+    while (p) {
+      if (p->done != 1) {
+        j->done = 0;
         break;
       }
-      p=p->next;
+      p = p->next;
     }
-    j=j->next;
+    j = j->next;
   }
+  head = clean_list(head);
+  return head;
 }

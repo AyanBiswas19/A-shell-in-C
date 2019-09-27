@@ -21,11 +21,11 @@ int job_runner(job *j, char clist[][MAX_COMMANDNAME_LENGTH]) {
       launch_process(p, j->pgid, infile, outfile, bflag, clist);
       break;
     default:
-      p->pid=pid;
-        if (infile != STDIN_FILENO)
-        close (infile);
+      p->pid = pid;
+      if (infile != STDIN_FILENO)
+        close(infile);
       if (outfile != STDOUT_FILENO)
-        close (outfile);
+        close(outfile);
       if (p->next)
         infile = pipes[0];
       if (j->pgid == 0)
@@ -42,7 +42,7 @@ int job_runner(job *j, char clist[][MAX_COMMANDNAME_LENGTH]) {
   }
   if (!bflag) {
     while (!(j->done)) {
-      //kill(-getpgrp(), SIGTTIN);
+      // kill(-getpgrp(), SIGTTIN);
     }
     if (tcgetpgrp(STDIN_FILENO) != getpgid(0)) {
       if (tcsetpgrp(STDIN_FILENO, getpgid(0)) != 0)

@@ -54,4 +54,4 @@ int job_printer(job *j);
 void launch_process(process *p, pid_t pgid, int infile, int outfile, int bflag,
                     char clist[][MAX_COMMANDNAME_LENGTH]);
 process *find_process(job *head, pid_t pid);
-void update_jobs(job *head);
+job *update_jobs(job *head);
