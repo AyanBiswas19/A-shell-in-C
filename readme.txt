@@ -1,0 +1,1 @@
+All specfications are done. Bonuses are not attempted. Everything is done as similar as possible to the actual bash shell like running all processes in pipe simultaneously, maintaining thier opening and closings, using signals wherever applicable etc. Other than that assumptions and input formats are more or less same as assignment 2 which was a predecessor to this.

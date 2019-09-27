@@ -62,3 +62,4 @@ int shell_kjob(char *args[]);
 int shell_overkill();
 int shell_setenv(char *args[]);
 int shell_unsetenv(char *args[]);
+int isDoneOrStopped(job *j);

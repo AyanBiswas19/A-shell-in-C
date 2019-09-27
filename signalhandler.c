@@ -18,7 +18,8 @@ void handler() {
       process *p = find_process(jhead, pid);
       if (p){
         if(WIFSTOPPED(status)){
-          p->stopped=1;
+          //printf("\nProcess pid %d stopped.",pid);
+          p->stopped=1; 
         }
         else
           p->done=1;

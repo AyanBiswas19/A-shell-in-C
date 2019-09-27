@@ -12,6 +12,11 @@ int shell_bg(char *args[]){
 		printf("Error: No such job exists.\n");
 		return EXIT_FAILURE;
 	}
+	process *p=j->first_process;
+	while(p){
+		p->stopped=0;
+		p=p->next;
+	}
 	kill(-(j->pgid),SIGCONT);
     return EXIT_SUCCESS;
 }

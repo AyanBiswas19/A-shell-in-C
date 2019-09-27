@@ -15,6 +15,16 @@ int get_background_flag(char *s) {
   return 0;
 }
 
+void clear_line(FILE *in)
+{
+    int ch;
+    do
+        ch = getc(in);
+    while (ch != '\n' && ch != EOF);
+    if (ch == EOF && !ferror(in))
+        clearerr(in);
+}
+
 void run_shell() {
   int i;
   env_data E;
@@ -22,21 +32,24 @@ void run_shell() {
   char clist[][MAX_COMMANDNAME_LENGTH] = {
       "cd",   "echo", "pwd", "ls", "pinfo",    "setenv", "unsetenv",
       "jobs", "kjob", "fg",  "bg", "overkill", "\0"};
-  char inp_line[INP_BUFFSIZE * sizeof(char)],
+  char *inp_line=NULL,
       cname[MAX_COMMANDNAME_LENGTH * sizeof(char)], *command, *param;
   char *args[MAX_ARG_NO * sizeof(char *)];
   char *commands[MAX_COMMAND_NO * sizeof(char *)];
   int background_flags[MAX_COMMAND_NO * sizeof(int)];
-  inp_line[0] = '\0';
+  size_t size=0;
   int exit_flag = 0, cno, rid;
   while (1) {
     get_env_data(&E);
     fflush(stdout);
     print_promt(E);
-    if (fgets(inp_line, INP_BUFFSIZE, stdin) == NULL) {
+    size_t ctdflag=getline(&inp_line, &size, stdin);
+    if (ctdflag == -1){
+      // clearerr(stdin);
+      // continue;
       printf("\n");
       return;
-    }
+}
     inp_line[strlen(inp_line) - 1] = '\0';
     if (strlen(inp_line) == 0) {
       continue;

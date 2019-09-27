@@ -18,24 +18,24 @@ void launch_process(process *p, pid_t pgid, int infile, int outfile, int bflag,
   signal(SIGTTOU, SIG_DFL);
   if (p->infile) {
     close(infile);
-    infile = open(p->infile, O_RDONLY, 0777);
-  } else {
+    infile = open(p->infile, O_RDONLY, 0644);
+  } 
     if (infile != STDIN_FILENO) {
       dup2(infile, STDIN_FILENO);
       close(infile);
-    }
+    
   }
   if (p->outfile) {
     close(outfile);
     if (p->aflag)
-      outfile = open(p->outfile, O_CREAT | O_APPEND, 0777);
+      outfile = open(p->outfile, O_CREAT | O_WRONLY | O_APPEND, 0644);
     else
-      outfile = open(p->outfile, O_CREAT | O_WRONLY | O_TRUNC, 0777);
-  } else {
+      outfile = open(p->outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+  } 
     if (outfile != STDOUT_FILENO) {
       dup2(outfile, STDOUT_FILENO);
       close(outfile);
-    }
+    
   }
   cno = check_builtin(p->args[0], clist);
   if (cno != -1) {

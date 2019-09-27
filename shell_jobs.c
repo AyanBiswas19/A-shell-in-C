@@ -8,7 +8,7 @@ int shell_jobs(){
 			continue;
 		}		
     	printf("\n[%d] ", j->no);
-		if(j->stopped)
+		if(isDoneOrStopped(j))
 			printf("Stopped");
 		else
 			printf("Running");
