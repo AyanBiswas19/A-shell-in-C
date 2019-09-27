@@ -2,6 +2,7 @@
 
 job *init_job(const char *command, int bflag) {
   job *j = malloc(sizeof(job));
+  j->running=0;
   j->next = NULL;
   j->command = strdup(command);
   j->argspace = strdup(command);
@@ -27,6 +28,8 @@ process *get_proclist(job *j) {
       p = malloc(sizeof(process));
       h = p;
     }
+    p->infile==NULL;
+    p->outfile==NULL;
     p->next = NULL;
     p->pid = 0;
     p->completed = 0;

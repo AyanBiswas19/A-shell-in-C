@@ -47,8 +47,11 @@ job *clean_list(job *head) {
   job *p = head;
   while (p) {
     if (p->done && p->bflag) {
-      printf("Background job: %s exited with pgid %d.\n", p->command, p->pgid);
-      head = remove_job(head, p->pgid);
+      printf("Background job: %s exited with pgid %d.\n", p->argspace, p->pgid);
+      pid_t pgid=p->pgid;
+      p=p->next;
+      head = remove_job(head,pgid);
+      continue;
     }
     p = p->next;
   }

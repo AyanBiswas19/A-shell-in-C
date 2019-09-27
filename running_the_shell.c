@@ -19,8 +19,9 @@ void run_shell() {
   int i;
   env_data E;
   E.pwd = malloc(MAX_PATH_LENGTH * sizeof(char));
-  char clist[][MAX_COMMANDNAME_LENGTH] = {"cd", "echo",  "pwd",
-                                          "ls", "pinfo", "\0"};
+  char clist[][MAX_COMMANDNAME_LENGTH] = {
+      "cd",   "echo", "pwd", "ls", "pinfo",    "setenv", "unsetenv",
+      "jobs", "kjob", "fg",  "bg", "overkill", "\0"};
   char inp_line[INP_BUFFSIZE * sizeof(char)],
       cname[MAX_COMMANDNAME_LENGTH * sizeof(char)], *command, *param;
   char *args[MAX_ARG_NO * sizeof(char *)];

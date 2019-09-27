@@ -31,6 +31,20 @@ int execute(int ctr, char *args[], int bf) {
     case 4:
       return_id = shell_pinfo(args);
       break;
+    case 5: return_id=shell_setenv(args);
+      break;
+    case 6: return_id=shell_unsetenv(args);
+      break;
+    case 7: return_id=shell_jobs();
+      break;
+    case 8: return_id=shell_kjob(args);
+      break;
+    case 9: return_id=shell_fg(args);
+      break;
+    case 10:return_id=shell_bg(args);
+      break;
+    case 11:return_id=shell_overkill();
+      break;
     default:
       printf("Some very strange error occured\n");
       break;

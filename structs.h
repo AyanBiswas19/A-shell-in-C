@@ -24,6 +24,8 @@ struct job {
   char *argspace;
   process *first_process;
   pid_t pgid;
+  char running;
+  char stopped;
   char done;
   int no;
   int bflag;

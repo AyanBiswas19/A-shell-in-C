@@ -16,8 +16,13 @@ void handler() {
     }
     if (pid > 0) {
       process *p = find_process(jhead, pid);
-      if (p)
-        p->done = 1;
+      if (p){
+        if(WIFSTOPPED(status)){
+          p->stopped=1;
+        }
+        else
+          p->done=1;
+      }
       jhead = update_jobs(jhead);
       // return;
     } else

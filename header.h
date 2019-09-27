@@ -55,3 +55,10 @@ void launch_process(process *p, pid_t pgid, int infile, int outfile, int bflag,
                     char clist[][MAX_COMMANDNAME_LENGTH]);
 process *find_process(job *head, pid_t pid);
 job *update_jobs(job *head);
+int shell_jobs();
+int shell_fg(char *args[]);
+int shell_bg(char *args[]);
+int shell_kjob(char *args[]);
+int shell_overkill();
+int shell_setenv(char *args[]);
+int shell_unsetenv(char *args[]);
